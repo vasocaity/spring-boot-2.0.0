@@ -22,4 +22,8 @@ public class NoteController {
         model.addAttribute("noteList", noteList);
         return "result";
     }
+    @GetMapping("/register")
+    public String registerMember(){
+        return "register";
+    }
 }
