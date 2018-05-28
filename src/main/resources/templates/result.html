@@ -1,19 +1,94 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/></head>
-<body>
-<h2>THING TO DO</h2>
-<div th:each="note : ${noteList}">
-    <span th:text="${note.task}"></span>
-    <a th:href="@{editform/{id}(id=${note.nid})}">แก้ไข</a>
-    <a th:href="@{delnote/{id}(id=${note.nid})}">ลบ</a> <br/>
-</div><br/>
-<form action="addnote" method="post">
-    <input type="text" name="task"/>
-    <input type="submit" value="add"/>
-</form>
-<form action="searchnote">
-    <input type="text" name="task"/>
-    <input type="submit" value="search"/>
-</form>
+<head th:replace="top-nav :: headerAsseat">..</head>
+<body class="hold-transition skin-blue layout-top-nav">
+<div class="wrapper">
+    <div th:replace="top-nav :: header">...</div>
+    <!-- Content -->
+    <!-- Full Width Column -->
+    <div class="content-wrapper">
+        <div class="container">
+            <section class="content-header">
+                <h2>THING TO DO</h2>
+            </section>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Task</th>
+                                    <th>Date</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="note,iter : ${noteList}">
+                                    <td th:text="${iter.index+1}"></td>
+                                    <td th:text="${note.task}"></td>
+                                    <!--<td th:text="${note.updateDate}"></td>-->
+                                    <td th:text="${#strings.substring(note.updateDate,0,19)}"></td>
+                                    <td>
+                                        <a th:href="@{editform/{id}(id=${note.nid})}" class="btn btn-default btn-sm">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </a>
+                                        <a th:href="@{delnote/{id}(id=${note.nid})}" class="btn btn-default btn-sm">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody></table>
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <br/>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add TO DO</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form action="addnote" method="post" autocomplete="off">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Task</label>
+                            <input type="text" name="task" class="form-control"placeholder="Enter task" />
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+            <form action="searchnote">
+                <input type="text" name="task"/>
+                <input type="submit" value="search"/>
+            </form>
+            <!-- /.content -->
+        </div>
+        <!-- /.container -->
+    </div>
+
+    <!-- Content -->
+</div>
+
+<!-- jQuery 2.2.3 -->
+<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../../bootstrap/js/bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../../plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
 </body>
 </html>
